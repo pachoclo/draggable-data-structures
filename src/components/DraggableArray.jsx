@@ -4,7 +4,7 @@ import styled from '@emotion/styled'
 import { colors } from '@atlaskit/theme'
 import { ArrayItem } from './ArrayElement'
 
-const items = [200, 3, 4, 5, 6]
+const items = [20, 3, 4, 5, 7]
 
 const initElements = (items) =>
   items.map((value, idx) => ({ id: `${idx}`, value }))
@@ -56,6 +56,9 @@ const DraggableArray = ({
   internalScroll,
 }) => {
   const [elements, setElements] = useState(initElements(items))
+  const [currentArray, setCurrentArray] = useState(
+    getArrayFromElements(elements)
+  )
 
   const renderBoard = (dropProvided) => {
     return (
@@ -89,6 +92,7 @@ const DraggableArray = ({
     const elementsCopy = elements
     swapElements(elementsCopy, result.source.index, result.destination.index)
     setElements(elementsCopy)
+    setCurrentArray(getArrayFromElements(elements))
   }
 
   return (
@@ -112,8 +116,13 @@ const DraggableArray = ({
           </Wrapper>
         )}
       </Droppable>
+      <div>{JSON.stringify(currentArray, null, 2)}</div>
     </DragDropContext>
   )
+}
+
+function getArrayFromElements(elements) {
+  return elements.map((element) => element.value)
 }
 
 function swapElements(array, idxOne, idxTwo) {
