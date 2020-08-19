@@ -1,4 +1,4 @@
-# Draggable Data Structires
+# Draggable Data Structures
 A React tool to help you visualize data structure changes while you come up with an algorithm solution.
 
 It should:
@@ -8,7 +8,7 @@ It should:
 
 ___
   
-  
+
  > This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Scripts
