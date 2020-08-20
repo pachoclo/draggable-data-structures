@@ -9,7 +9,7 @@ const Root = styled.div`
   justify-content: center;
   align-items: center;
   flex-shrink: 0;
-  margin-right: 8px;
+  margin-right:4px;
   box-shadow: ${({ isDragging }) =>
     isDragging ? `1px 1px 15px black` : 'none'};
 `
@@ -22,10 +22,10 @@ const Item = styled.div`
   height: 40px;
   background-color: ${colors.P300};
   border-radius: 50%;
-  border-color: ${({ isDragging }) => (isDragging ? colors.Y200 : colors.P100)};
+  border-color: ${({ isDragging }) => (isDragging ? colors.Y200 : 'transparent')};
   border-style: solid;
-  border-width: 6px;
-  font-size: 18px;
+  border-width: 4px;
+  font-size: 22px;
   font-weight: 700;
 `
 

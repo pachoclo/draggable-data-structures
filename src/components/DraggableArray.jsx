@@ -1,17 +1,13 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState } from 'react'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 import styled from '@emotion/styled'
 import { colors } from '@atlaskit/theme'
-import { ArrayItem } from './ArrayElement'
-
-const data = [20, 3, 4, 5, 7]
+import { ArrayItem } from './ArrayItem'
 
 const Wrapper = styled.div`
-  border-left: 8px solid ${colors.P200};
-  border-bottom: 8px solid ${colors.P200};
-  border-top: 8px solid ${colors.P200};
-  background-color: ${({ isDraggingOver }) =>
-    isDraggingOver ? colors.T75 : colors.B50};
+  border-left: 4px solid ${colors.P200};
+  border-bottom: 4px solid ${colors.P200};
+  border-top: 4px solid ${colors.P200};
   display: flex;
   flex-direction: column;
   user-select: none;
@@ -39,9 +35,10 @@ const Container = styled.div`
 const ContainerBG = styled.div`
   position: absolute;
   top: 0px;
-  left: ${({ index }) => 60 * (1 + index) + index * 8}px;
+  left: ${({ index }) =>
+    60 * (1 + index) + index * 4}px; /* TODO: why is this so contrived?*/
   z-index: 0;
-  width: 8px;
+  width: 4px;
   height: 60px;
   background-color: ${colors.P200};
 `
@@ -51,49 +48,48 @@ const DraggableArray = ({
   listId = 0,
   listType,
   internalScroll,
-  items = data,
+  array = [],
 }) => {
-  const initElements = (items) =>
-    items.map((value, idx) => ({ id: `${idx}`, value }))
+  const [items, setItems] = useState(initItemsFromArray(array))
+  const [currentArray, setCurrentArray] = useState(getArrayFromItems(items))
 
-  const [elements, setElements] = useState(initElements(items))
-  const [currentArray, setCurrentArray] = useState(
-    getArrayFromElements(elements)
+  const renderBoard = (dropProvided) => (
+    <Container>
+      {items.map((_, idx) => (
+        <ContainerBG key={idx} index={idx} />
+      ))}
+      
+      <DropZone ref={dropProvided.innerRef}>
+        {items.map((element, index) => (
+          <Draggable key={element.id} draggableId={element.id} index={index}>
+            {(dragProvided, dragSnapshot) => (
+              <ArrayItem
+                author={element}
+                provided={dragProvided}
+                snapshot={dragSnapshot}
+              />
+            )}
+          </Draggable>
+        ))}
+        {dropProvided.placeholder}
+      </DropZone>
+    </Container>
   )
 
-  const renderBoard = (dropProvided) => {
-    return (
-      <Container>
-        {elements.map((_, idx) => (
-          <ContainerBG key={idx} index={idx} />
-        ))}
+  const onDragEnd = (result) => {
+    if (!result.destination) {
+      // TODO: dropping it out of the array container -> don't do anything for now.
+      return
+    }
+    if (result.destination.index === result.source.index) {
+      // TODO: dropping it at the same place -> don't do anything for now.
+      return
+    }
 
-        <DropZone ref={dropProvided.innerRef}>
-          {elements.map((element, index) => (
-            <Draggable key={element.id} draggableId={element.id} index={index}>
-              {(dragProvided, dragSnapshot) => (
-                <ArrayItem
-                  author={element}
-                  provided={dragProvided}
-                  snapshot={dragSnapshot}
-                />
-              )}
-            </Draggable>
-          ))}
-          {dropProvided.placeholder}
-        </DropZone>
-      </Container>
-    )
-  }
-
-  const onDragEnd = (result /* DropResult */) => {
-    if (!result.destination) return
-    if (result.destination.index === result.source.index) return
-
-    const elementsCopy = elements
+    const elementsCopy = items
     swapElements(elementsCopy, result.source.index, result.destination.index)
-    setElements(elementsCopy)
-    setCurrentArray(getArrayFromElements(elements))
+    setItems(elementsCopy)
+    setCurrentArray(getArrayFromItems(items))
   }
 
   return (
@@ -122,7 +118,11 @@ const DraggableArray = ({
   )
 }
 
-function getArrayFromElements(elements) {
+function initItemsFromArray(array) {
+  return array.map((value, idx) => ({ id: `${idx}`, value }))
+}
+
+function getArrayFromItems(elements) {
   return elements.map((element) => element.value)
 }
 
