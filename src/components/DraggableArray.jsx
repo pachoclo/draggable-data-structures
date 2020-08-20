@@ -1,13 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 import styled from '@emotion/styled'
 import { colors } from '@atlaskit/theme'
 import { ArrayItem } from './ArrayElement'
 
-const items = [20, 3, 4, 5, 7]
-
-const initElements = (items) =>
-  items.map((value, idx) => ({ id: `${idx}`, value }))
+const data = [20, 3, 4, 5, 7]
 
 const Wrapper = styled.div`
   border-left: 8px solid ${colors.P200};
@@ -54,7 +51,11 @@ const DraggableArray = ({
   listId = 0,
   listType,
   internalScroll,
+  items = data,
 }) => {
+  const initElements = (items) =>
+    items.map((value, idx) => ({ id: `${idx}`, value }))
+
   const [elements, setElements] = useState(initElements(items))
   const [currentArray, setCurrentArray] = useState(
     getArrayFromElements(elements)
