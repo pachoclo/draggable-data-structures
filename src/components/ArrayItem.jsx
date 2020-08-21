@@ -2,7 +2,7 @@ import React from 'react'
 import styled from '@emotion/styled'
 import { colors } from '@atlaskit/theme'
 
-const Root = styled.div`
+const Container = styled.div`
   width: 60px;
   height: 60px;
   display: flex;
@@ -29,15 +29,15 @@ const Item = styled.div`
   font-weight: 700;
 `
 
-const ArrayItem = ({ author, provided, snapshot }) => {
+const ArrayItem = ({ item, provided, snapshot }) => {
   return (
-    <Root
+    <Container
       ref={(ref) => provided.innerRef(ref)}
       {...provided.draggableProps}
       {...provided.dragHandleProps}
     >
-      <Item isDragging={snapshot.isDragging}>{author?.value}</Item>
-    </Root>
+      <Item isDragging={snapshot.isDragging}>{item?.value}</Item>
+    </Container>
   )
 }
 
