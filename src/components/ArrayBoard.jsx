@@ -3,6 +3,7 @@ import { Draggable } from 'react-beautiful-dnd'
 import styled from '@emotion/styled'
 import { colors } from '@atlaskit/theme'
 import { ArrayItem } from './ArrayItem'
+import constants from './constants'
 
 const DropZone = styled.div`
   display: flex;
@@ -13,25 +14,24 @@ const Container = styled.div`
   flex-grow: 1;
   display: inline-flex;
   position: relative;
-  min-width: 60px;
-  min-height: 60px;
 `
 
 const ContainerBG = styled.div`
   position: absolute;
   top: 0px;
   left: ${({ index }) =>
-    60 * (1 + index) + index * 4}px; /* TODO: why is this so contrived?*/
+    constants.array.height * (1 + index) +
+    index * constants.array.gap}px; /* TODO: why is this so contrived?*/
   z-index: 0;
-  width: 4px;
-  height: 60px;
+  width: ${constants.array.gap}px;
+  height: ${constants.array.height}px;
   background-color: ${colors.P200};
 `
 
 const Wrapper = styled.div`
-  border-left: 4px solid ${colors.P200};
-  border-bottom: 4px solid ${colors.P200};
-  border-top: 4px solid ${colors.P200};
+  border-left: ${constants.array.gap}px solid ${colors.P200};
+  border-bottom: ${constants.array.gap}px solid ${colors.P200};
+  border-top: ${constants.array.gap}px solid ${colors.P200};
   display: flex;
   flex-direction: column;
   user-select: none;

@@ -2,69 +2,36 @@ import React, { useState } from 'react'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import { ArrayBoard } from './ArrayBoard'
 import { Pointer } from './Pointer'
-import styled from '@emotion/styled'
-import { colors } from '@atlaskit/theme'
+import { ArrayInput } from './ArrayInput'
 
 const ENTER_KEY_CODE = 13
 
-const Input = styled.input`
-  background-color: transparent;
-  font-size: 16px;
-  border: none;
-  padding: 2px 4px 4px 4px;
-  color: ${colors.T200};
-  text-align: center;
-  
+const defaultArray = [1, -2, 3, -4, 5, -6]
+// const defaultArray = []
 
-  &:focus,
-  &:hover {
-    background-color: ${colors.P50};
-    color: ${colors.P500};
-    animation: fadein  .5s;
-  }
+const ArrayComponent = ({ listType }) => {
+  const [items, setItems] = useState(initItemsFromArray(defaultArray))
+  const [arrayInput, setArrayInput] = useState(stringifyArray(defaultArray))
 
-  @keyframes fadein {
-    from { opacity: 0.5; }
-    to   { opacity: 1; }
-  }
-`
-
-const ArrayComponent = ({
-  isCombineEnabled = false,
-  listId = 0,
-  listType,
-  array = [],
-}) => {
-  const [items, setItems] = useState(helpers.initItemsFromArray(array))
-  const [arrayInput, setArrayInput] = useState(helpers.stringifyArray(array))
-
-  const onDragEnd = (result) => {
-    if (
-      !result.destination ||
-      result.destination.index === result.source.index
-    ) {
+  const onDragEnd = ({ destination, source }) => {
+    if (!destination || destination.index === source.index) {
       return
     }
-    const elementsCopy = items
-    helpers.swapElements(
-      elementsCopy,
-      result.source.index,
-      result.destination.index
-    )
-    setItems(elementsCopy)
-    setArrayInput(helpers.arrayInputFromItems(items))
+    const itemsCopy = [...items]
+    moveItem(itemsCopy, destination.index, source.index)
+    setItems(itemsCopy)
+    setArrayInput(arrayInputFromItems(items))
   }
 
   const handleInputChange = ({ target }) => {
     setArrayInput(target.value.trim())
   }
 
-  const handleKeyUp = ({ target, keyCode }) => {
+  const handleInputKeyUp = ({ target, keyCode }) => {
     if (keyCode === ENTER_KEY_CODE) {
       try {
         let newArray = JSON.parse(target.value.trim())
-        if (Array.isArray(newArray))
-          setItems(helpers.initItemsFromArray(newArray))
+        if (Array.isArray(newArray)) setItems(initItemsFromArray(newArray))
       } catch (e) {
         console.error(e.message)
       }
@@ -73,19 +40,15 @@ const ArrayComponent = ({
 
   return (
     <>
-      <Input
+      <ArrayInput
         type="text"
         value={arrayInput}
         onChange={handleInputChange}
-        onKeyUp={handleKeyUp}
+        onKeyUp={handleInputKeyUp}
       />
 
       <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable
-          type={listType}
-          direction="horizontal"
-          droppableId={listId.toString()}
-        >
+        <Droppable type={listType} direction="horizontal" droppableId={'1'}>
           {(dropProvided, dropSnapshot) => (
             <ArrayBoard
               items={items}
@@ -101,28 +64,30 @@ const ArrayComponent = ({
   )
 }
 
-const helpers = {
-  initItemsFromArray(array) {
-    return array.map((value, idx) => ({ id: `${idx}`, value }))
-  },
+function initItemsFromArray(array) {
+  return array.map((value, idx) => ({ id: `${idx}`, value }))
+}
 
-  getArrayFromItems(elements) {
-    return elements.map((element) => element.value)
-  },
+function getArrayFromItems(elements) {
+  return elements.map((element) => element.value)
+}
 
-  swapElements(array, idxOne, idxTwo) {
-    let temp = array[idxOne]
-    array[idxOne] = array[idxTwo]
-    array[idxTwo] = temp
-  },
+function swapElements(array, idxOne, idxTwo) {
+  let temp = array[idxOne]
+  array[idxOne] = array[idxTwo]
+  array[idxTwo] = temp
+}
 
-  stringifyArray(array) {
-    return JSON.stringify(array, null, 2)
-  },
+function moveItem(array, toIdx, fromIdx) {
+  array.splice(toIdx, 0, array.splice(fromIdx, 1)[0])
+}
 
-  arrayInputFromItems(items) {
-    return this.stringifyArray(this.getArrayFromItems(items))
-  },
+function stringifyArray(array) {
+  return JSON.stringify(array, null, 2)
+}
+
+function arrayInputFromItems(items) {
+  return stringifyArray(getArrayFromItems(items))
 }
 
 export { ArrayComponent as Array }
