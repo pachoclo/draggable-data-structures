@@ -23,6 +23,7 @@ const ArrowUp = styled.div`
   transform: rotate(-135deg);
   grid-area: 1 / 1;
 `
+
 const Pointer = () => {
   return (
     <Wrapper>

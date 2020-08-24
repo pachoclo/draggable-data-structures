@@ -72,11 +72,11 @@ function getArrayFromItems(elements) {
   return elements.map((element) => element.value)
 }
 
-function swapElements(array, idxOne, idxTwo) {
-  let temp = array[idxOne]
-  array[idxOne] = array[idxTwo]
-  array[idxTwo] = temp
-}
+// function swapElements(array, idxOne, idxTwo) {
+//   let temp = array[idxOne]
+//   array[idxOne] = array[idxTwo]
+//   array[idxTwo] = temp
+// }
 
 function moveItem(array, toIdx, fromIdx) {
   array.splice(toIdx, 0, array.splice(fromIdx, 1)[0])
