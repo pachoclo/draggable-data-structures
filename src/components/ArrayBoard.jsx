@@ -1,13 +1,12 @@
 import React from 'react'
 import { Draggable } from 'react-beautiful-dnd'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 import { colors } from '@atlaskit/theme'
 import { ArrayItem } from './ArrayItem'
 import constants from './constants'
 
 const DropZone = styled.div`
   display: flex;
-  align-items: start;
 `
 
 const Container = styled.div`

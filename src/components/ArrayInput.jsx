@@ -1,5 +1,5 @@
 import { colors } from '@atlaskit/theme'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 
 const ArrayInput = styled.input`
   background-color: transparent;

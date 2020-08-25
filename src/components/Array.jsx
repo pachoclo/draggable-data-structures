@@ -7,7 +7,6 @@ import { ArrayInput } from './ArrayInput'
 const ENTER_KEY_CODE = 13
 
 const defaultArray = [1, -2, 3, -4, 5, -6]
-// const defaultArray = []
 
 const ArrayComponent = ({ listType }) => {
   const [items, setItems] = useState(initItemsFromArray(defaultArray))
