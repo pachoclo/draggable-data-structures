@@ -11,6 +11,7 @@ const defaultArray = [1, -2, 3, -4, 5, -6]
 const ArrayComponent = ({ listType }) => {
   const [items, setItems] = useState(initItemsFromArray(defaultArray))
   const [arrayInput, setArrayInput] = useState(stringifyArray(defaultArray))
+  const [inputError, setInputError] = useState(null)
 
   const onDragEnd = ({ destination, source }) => {
     if (!destination || destination.index === source.index) {
@@ -31,8 +32,10 @@ const ArrayComponent = ({ listType }) => {
       try {
         let newArray = JSON.parse(target.value.trim())
         if (Array.isArray(newArray)) setItems(initItemsFromArray(newArray))
+        setInputError(null)
       } catch (e) {
-        console.error(e.message)
+        console.error(e)
+        setInputError('Invalid array -_-')
       }
     }
   }
@@ -44,6 +47,7 @@ const ArrayComponent = ({ listType }) => {
         value={arrayInput}
         onChange={handleInputChange}
         onKeyUp={handleInputKeyUp}
+        errorMessage={inputError}
       />
 
       <DragDropContext onDragEnd={onDragEnd}>
