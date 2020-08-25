@@ -19,7 +19,7 @@ const ArrayComponent = ({ listType }) => {
     const itemsCopy = [...items]
     moveItem(itemsCopy, destination.index, source.index)
     setItems(itemsCopy)
-    setArrayInput(arrayInputFromItems(items))
+    setArrayInput(arrayInputFromItems(itemsCopy))
   }
 
   const handleInputChange = ({ target }) => {
