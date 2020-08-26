@@ -1,36 +1,34 @@
-import { colors } from '@atlaskit/theme'
-import React from 'react'
-import { DraggableProvided, DraggableStateSnapshot } from 'react-beautiful-dnd'
-import styled from 'styled-components'
-import constants from './constants'
-import { ArrayItemType } from './types'
+import { colors } from "@atlaskit/theme"
+import React from "react"
+import { DraggableProvided, DraggableStateSnapshot } from "react-beautiful-dnd"
+import styled from "styled-components"
+import constants from "./constants"
+import { ArrayItemType } from "./types"
 
 const Container = styled.div`
-  width: ${constants.array.height}px;
-  height: ${constants.array.height}px;
-  display: flex;
-  justify-content: center;
   align-items: center;
-  flex-shrink: 0;
-  margin-right: ${constants.array.gap}px;
+  background-color: transparent;
+  display: flex;
+  height: ${constants.array.height}px;
+  justify-content: center;
+  width: ${constants.array.height}px;
 `
 
 const Item = styled.div<{ isDragging: boolean }>`
-  display: flex;
-  justify-content: center;
   align-items: center;
-  width: 65%;
-  height: 65%;
   background-color: ${colors.P300};
+  border-color: ${({ isDragging }) => (isDragging ? colors.Y200 : "transparent")};
   border-radius: 50%;
-  border-color: ${({ isDragging }) =>
-    isDragging ? colors.Y200 : 'transparent'};
   border-style: solid;
   border-width: 10px;
+  box-shadow: ${({ isDragging }) => (isDragging ? `1px 1px 15px black` : "none")};
+  display: flex;
   font-size: 36px;
   font-weight: 700;
-  box-shadow: ${({ isDragging }) =>
-    isDragging ? `1px 1px 15px black` : 'none'};
+  height: 65%;
+  justify-content: center;
+  user-select: none;
+  width: 65%;
 `
 
 interface ArrayItemProps {
