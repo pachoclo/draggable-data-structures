@@ -1,9 +1,14 @@
 import React from 'react'
-import { Draggable } from 'react-beautiful-dnd'
+import {
+  Draggable,
+  DroppableProvided,
+  DroppableStateSnapshot,
+} from 'react-beautiful-dnd'
 import styled from 'styled-components'
 import { colors } from '@atlaskit/theme'
 import { ArrayItem } from './ArrayItem'
 import constants from './constants'
+import { ArrayItemType } from './types'
 
 const DropZone = styled.div`
   display: flex;
@@ -15,7 +20,7 @@ const Container = styled.div`
   position: relative;
 `
 
-const ContainerBG = styled.div`
+const ContainerBG = styled.div<{ index: number }>`
   position: absolute;
   top: 0px;
   left: ${({ index }) =>
@@ -38,11 +43,18 @@ const Wrapper = styled.div`
   margin: 20px 0;
 `
 
-const ArrayBoard = ({ items, dropProvided, dropSnapshot }) => (
-  <Wrapper
-    isDraggingOver={dropSnapshot.isDraggingOver}
-    {...dropProvided.droppableProps}
-  >
+interface ArrayBoardProps {
+  items: ArrayItemType[]
+  dropProvided: DroppableProvided
+  dropSnapshot: DroppableStateSnapshot
+}
+
+const ArrayBoard: React.FC<ArrayBoardProps> = ({
+  items,
+  dropProvided,
+  dropSnapshot,
+}) => (
+  <Wrapper>
     <Container>
       {items.map((_, idx) => (
         <ContainerBG key={idx} index={idx} />

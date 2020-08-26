@@ -32,10 +32,20 @@ const Error = styled.span`
   margin-left: 16px;
 `
 
-const ArrayInput = ({ errorMessage, ...props }) => {
+interface ArrayInputProps extends React.HTMLProps<HTMLInputElement> {
+  errorMessage: string | null
+  className?: string
+}
+
+const ArrayInput: React.FC<ArrayInputProps> = ({
+  errorMessage,
+  value,
+  onChange,
+  onKeyUp,
+}) => {
   return (
     <div>
-      <ArrayInputStyled {...props} />
+      <ArrayInputStyled value={value} onChange={onChange} onKeyUp={onKeyUp} />
       <Error>{errorMessage}</Error>
     </div>
   )

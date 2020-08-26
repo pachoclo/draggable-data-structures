@@ -1,9 +1,11 @@
-import React from 'react'
-import styled from 'styled-components'
 import { colors } from '@atlaskit/theme'
+import React from 'react'
+import { DraggableProvided, DraggableStateSnapshot } from 'react-beautiful-dnd'
+import styled from 'styled-components'
 import constants from './constants'
+import { ArrayItemType } from './types'
 
-const Container = styled.div`
+const Container = styled.div<{ isDragging: boolean }>`
   width: ${constants.array.height}px;
   height: ${constants.array.height}px;
   display: flex;
@@ -15,7 +17,7 @@ const Container = styled.div`
     isDragging ? `1px 1px 15px black` : 'none'};
 `
 
-const Item = styled.div`
+const Item = styled.div<{ isDragging: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -31,12 +33,19 @@ const Item = styled.div`
   font-weight: 700;
 `
 
-const ArrayItem = ({ item, provided, snapshot }) => {
+interface ArrayItemProps {
+  item: ArrayItemType
+  provided: DraggableProvided
+  snapshot: DraggableStateSnapshot
+}
+
+const ArrayItem: React.FC<ArrayItemProps> = ({ item, provided, snapshot }) => {
   return (
     <Container
       ref={(ref) => provided.innerRef(ref)}
       {...provided.draggableProps}
       {...provided.dragHandleProps}
+      isDragging={snapshot.isDragging}
     >
       <Item isDragging={snapshot.isDragging}>{item?.value}</Item>
     </Container>
