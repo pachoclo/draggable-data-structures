@@ -1,14 +1,14 @@
-import React, { useState } from "react"
-import { DragDropContext, Draggable, Droppable, DropResult } from "react-beautiful-dnd"
-import { ArrayBoard } from "./ArrayBoard"
-import { ArrayInput } from "./ArrayInput"
-import { ArrayItem } from "./ArrayItem"
-import { Pointer } from "./Pointer"
-import { ArrayItemType } from "./types"
+import React, { useState } from 'react'
+import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd'
+import { ArrayBoard } from './ArrayBoard'
+import { ArrayInput } from './ArrayInput'
+import { ArrayItem } from './ArrayItem'
+import { Pointer } from './Pointer'
+import { ArrayItemType, ArrayType } from './types'
 
 const ENTER_KEY_CODE = 13
 
-const defaultArray = [1, -2, 3, -4, 5, -6]
+const defaultArray: ArrayType = [1, -2, 3, -4, 5, -6]
 
 interface ArrayProps {}
 
@@ -39,7 +39,7 @@ const ArrayComponent: React.FC<ArrayProps> = () => {
         setInputError(null)
       } catch (err) {
         console.error(err)
-        setInputError("Invalid array -_-")
+        setInputError('Invalid array -_-')
       }
     }
   }
@@ -54,7 +54,7 @@ const ArrayComponent: React.FC<ArrayProps> = () => {
       />
 
       <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable direction="horizontal" droppableId={"1"}>
+        <Droppable direction="horizontal" droppableId={'1'}>
           {(dropProvided, _) => (
             <ArrayBoard droppableRef={dropProvided.innerRef}>
               {items.map((item, index) => (
@@ -64,26 +64,26 @@ const ArrayComponent: React.FC<ArrayProps> = () => {
                   )}
                 </Draggable>
               ))}
-
               {dropProvided.placeholder}
             </ArrayBoard>
           )}
         </Droppable>
-      </DragDropContext>
 
-      <Pointer />
+        <Pointer />
+      </DragDropContext>
     </>
   )
 }
 
-function initItemsFromArray(array: (string | number)[]): ArrayItemType[] {
+function initItemsFromArray(array: ArrayType): ArrayItemType[] {
   return array.map((value, idx) => ({ id: `${idx}`, value }))
 }
 
-function getArrayFromItems(items: ArrayItemType[]): (string | number)[] {
+function getArrayFromItems(items: ArrayItemType[]): ArrayType {
   return items.map((item) => item.value)
 }
 
+// ! Don't delete, will use later
 // function swapElements(array, idxOne, idxTwo) {
 //   let temp = array[idxOne]
 //   array[idxOne] = array[idxTwo]
@@ -94,7 +94,7 @@ function moveItem(items: ArrayItemType[], toIdx: number, fromIdx: number) {
   items.splice(toIdx, 0, items.splice(fromIdx, 1)[0])
 }
 
-function stringifyArray(array: (string | number)[]): string {
+function stringifyArray(array: ArrayType): string {
   return JSON.stringify(array, null, 2)
 }
 

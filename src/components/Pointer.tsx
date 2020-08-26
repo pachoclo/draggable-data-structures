@@ -16,8 +16,7 @@ const Wrapper = styled.div`
 
 const ArrowUp = styled.div`
   border: solid ${colors.T200};
-  border-width: 0 ${constants.array.gap * 1.5}px ${constants.array.gap * 1.5}px
-    0;
+  border-width: 0 ${constants.array.gap * 1.5}px ${constants.array.gap * 1.5}px 0;
   display: inline-block;
   padding: ${constants.array.gap}px;
   transform: rotate(-135deg);

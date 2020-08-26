@@ -43,8 +43,9 @@
     "@types/styled-components": "^5.1.2",
     "typescript": "^4.0.2"
   },
-  "prettier" : {
+  "prettier": {
     "printWidth": 100,
-    "semi": false
+    "semi": false,
+    "singleQuote": true
   }
 }

@@ -1,14 +1,14 @@
-import { colors } from "@atlaskit/theme"
-import React from "react"
-import styled from "styled-components"
-import constants from "./constants"
+import { colors } from '@atlaskit/theme'
+import React from 'react'
+import styled from 'styled-components'
+import constants from './constants'
 
 const DropZone = styled.div`
   display: flex;
   border: ${constants.array.gap}px solid ${colors.P200};
   display: flex;
-  user-select: none;
-  margin: 20px 0;
+  margin-top: 20px;
+  padding: ${constants.array.gap}px;
 `
 
 interface ArrayBoardProps {

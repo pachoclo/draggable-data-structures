@@ -5,16 +5,20 @@ import styled from 'styled-components'
 const ArrayInputStyled = styled.input`
   background-color: transparent;
   font-size: 24px;
-  border: none;
-  padding: 2px 4px 6px 4px;
+  border: 2px solid transparent;
+  padding: 3px 6px 8px 6px;
   color: ${colors.T200};
   text-align: center;
+  outline: none;
 
   &:focus,
   &:hover {
-    background-color: ${colors.P50};
-    color: ${colors.P500};
+    background-color: ${colors.DN70};
     animation: fadein 0.5s;
+    border-top: 2px solid ${colors.DN60};
+    border-left: 2px solid ${colors.DN60};
+    border-right: 2px solid ${colors.DN80};
+    border-bottom: 2px solid ${colors.DN80};
   }
 
   @keyframes fadein {
@@ -37,12 +41,7 @@ interface ArrayInputProps extends React.HTMLProps<HTMLInputElement> {
   className?: string
 }
 
-const ArrayInput: React.FC<ArrayInputProps> = ({
-  errorMessage,
-  value,
-  onChange,
-  onKeyUp,
-}) => {
+const ArrayInput: React.FC<ArrayInputProps> = ({ errorMessage, value, onChange, onKeyUp }) => {
   return (
     <div>
       <ArrayInputStyled value={value} onChange={onChange} onKeyUp={onKeyUp} />
