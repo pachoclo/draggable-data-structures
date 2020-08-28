@@ -24,16 +24,13 @@ const IndexContainer = styled.div`
   }
 `
 
-const IndicesStyled = styled.div<IndicesProps>`
-  /* width: ${({ numIndices }) =>
-    numIndices * constants.array.height + (numIndices - 4) * constants.array.gap}px; */
-  /* border: 1px solid yellowgreen; */
+const IndicesStyled = styled.div`
   display: flex;
 `
 
 const Indices: React.FC<IndicesProps> = ({ numIndices }) => {
   return (
-    <IndicesStyled numIndices={numIndices}>
+    <IndicesStyled>
       {Array(numIndices)
         .fill(null)
         .map((_, idx) => (
