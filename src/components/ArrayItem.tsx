@@ -16,10 +16,10 @@ const Item = styled.div<{ isDragging: boolean; variant: string }>`
   display: flex;
   font-size: 30px;
   font-weight: 700;
-  height: ${constants.array.height - (constants.array.gap - 2) * 2}px;
+  height: ${constants.array.height - constants.array.gap * 2}px;
   justify-content: center;
   user-select: none;
-  width: ${constants.array.height - (constants.array.gap - 2) * 2}px;
+  width: ${constants.array.height - constants.array.gap * 2}px;
 
   &:not(:first-child) {
     margin-left: ${constants.array.gap}px;

@@ -5,6 +5,7 @@ import { ArrayInput } from './ArrayInput'
 import { ArrayItem } from './ArrayItem'
 import { Pointer } from './Pointer'
 import { ArrayItemType, ArrayType } from './types'
+import { Indices } from './Indices'
 
 const ENTER_KEY_CODE = 13
 
@@ -69,6 +70,7 @@ const ArrayComponent: React.FC<ArrayProps> = () => {
           )}
         </Droppable>
 
+        <Indices numIndices={items.length} />
         <Pointer />
       </DragDropContext>
     </>

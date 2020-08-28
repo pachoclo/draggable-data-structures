@@ -7,11 +7,8 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: ${constants.array.height}px;
-  height: ${constants.array.height}px;
-  margin-left: ${constants.array.gap}px;
-  margin-top: -25px;
-  /* border: 1px solid ${colors.T200}; */
+  width: 116px;
+  height: 80px;
 `
 
 const ArrowUp = styled.div`
