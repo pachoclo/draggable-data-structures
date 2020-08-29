@@ -8,16 +8,16 @@ interface IndicesProps {
 }
 
 const IndexContainer = styled.div`
-  margin-top: ${constants.array.gap}px;
   border-bottom: 2px solid ${colors.T500};
   border-left: 2px solid ${colors.T500};
   border-right: 2px solid ${colors.T500};
-  height: 20px;
-  width: 112px;
-  text-align: center;
   color: ${colors.T200};
-  padding-bottom: 1px;
   font-size: 12px;
+  height: 20px;
+  margin-top: ${constants.array.gap}px;
+  padding-bottom: 1px;
+  text-align: center;
+  width: 112px;
 
   &:not(:first-child) {
     margin-left: ${constants.array.gap}px;

@@ -4,15 +4,15 @@ import { DraggableProvided, DraggableStateSnapshot } from 'react-beautiful-dnd'
 import styled from 'styled-components'
 import constants from './constants'
 import { ArrayItemType } from './types'
+import clsx from 'clsx'
 
-const Item = styled.div<{ isDragging: boolean; variant: string }>`
+const ArrayItemStyled = styled.div<{ variant: string }>`
   align-items: center;
   background-color: ${colors.P300};
-  border-color: ${({ isDragging }) => (isDragging ? colors.Y200 : 'transparent')};
+  border-color: transparent;
   border-radius: ${({ variant }) => (variant === 'square' ? 'none' : '50%')};
   border-style: solid;
   border-width: ${constants.array.gap - 2}px;
-  box-shadow: ${({ isDragging }) => (isDragging ? `1px 1px 25px black` : 'none')};
   display: flex;
   font-size: 30px;
   font-weight: 700;
@@ -20,6 +20,12 @@ const Item = styled.div<{ isDragging: boolean; variant: string }>`
   justify-content: center;
   user-select: none;
   width: ${constants.array.height - constants.array.gap * 2}px;
+
+  &.dragging {
+    border-color: ${colors.Y200};
+    box-shadow: 1px 1px 25px black;
+    background-color: ${colors.P300};
+  }
 
   &:not(:first-child) {
     margin-left: ${constants.array.gap}px;
@@ -34,15 +40,15 @@ interface ArrayItemProps {
 }
 
 const ArrayItem: React.FC<ArrayItemProps> = ({ item, provided, snapshot, variant = 'square' }) => (
-  <Item
-    isDragging={snapshot.isDragging}
+  <ArrayItemStyled
+    className={clsx({ dragging: snapshot.isDragging })}
     variant={variant}
     ref={(ref) => provided.innerRef(ref)}
     {...provided.draggableProps}
     {...provided.dragHandleProps}
   >
     {item?.value}
-  </Item>
+  </ArrayItemStyled>
 )
 
 export { ArrayItem }

@@ -4,21 +4,21 @@ import styled from 'styled-components'
 
 const ArrayInputStyled = styled.input`
   background-color: transparent;
-  font-size: 24px;
   border: 2px solid transparent;
-  padding: 3px 6px 8px 6px;
   color: ${colors.T200};
-  text-align: center;
+  font-size: 24px;
   outline: none;
+  padding: 3px 6px 8px 6px;
+  text-align: center;
 
   &:focus,
   &:hover {
-    background-color: ${colors.DN70};
     animation: fadein 0.5s;
-    border-top: 2px solid ${colors.DN60};
+    background-color: ${colors.DN70};
+    border-bottom: 2px solid ${colors.DN80};
     border-left: 2px solid ${colors.DN60};
     border-right: 2px solid ${colors.DN80};
-    border-bottom: 2px solid ${colors.DN80};
+    border-top: 2px solid ${colors.DN60};
   }
 
   @keyframes fadein {

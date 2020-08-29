@@ -3,8 +3,7 @@ import React from 'react'
 import styled from 'styled-components'
 import constants from './constants'
 
-const DropZone = styled.div`
-  display: flex;
+const ArrayBoardStyle = styled.div`
   border: ${constants.array.gap}px solid ${colors.P200};
   display: flex;
   margin-top: 20px;
@@ -16,7 +15,7 @@ interface ArrayBoardProps {
 }
 
 const ArrayBoard: React.FC<ArrayBoardProps> = ({ droppableRef, children }) => (
-  <DropZone ref={droppableRef}>{children}</DropZone>
+  <ArrayBoardStyle ref={droppableRef}>{children}</ArrayBoardStyle>
 )
 
 export { ArrayBoard }

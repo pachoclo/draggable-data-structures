@@ -3,9 +3,9 @@ import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautif
 import { ArrayBoard } from './ArrayBoard'
 import { ArrayInput } from './ArrayInput'
 import { ArrayItem } from './ArrayItem'
-import { Pointer } from './Pointer'
-import { ArrayItemType, ArrayType } from './types'
 import { Indices } from './Indices'
+import { PointerBoard } from './PointerBoard'
+import { ArrayItemType, ArrayType } from './types'
 
 const ENTER_KEY_CODE = 13
 
@@ -71,7 +71,12 @@ const ArrayComponent: React.FC<ArrayProps> = () => {
         </Droppable>
 
         <Indices numIndices={items.length} />
-        <Pointer />
+
+        <Droppable direction="horizontal" droppableId={'2'}>
+          {(dropProvided, _) => (
+            <PointerBoard droppableRef={dropProvided.innerRef} numIndices={items.length} />
+          )}
+        </Droppable>
       </DragDropContext>
     </>
   )

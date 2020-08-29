@@ -4,18 +4,17 @@ import { colors } from '@atlaskit/theme'
 import constants from './constants'
 
 const Wrapper = styled.div`
-  display: flex;
-  justify-content: center;
   align-items: center;
-  width: 116px;
+  display: flex;
   height: 80px;
+  justify-content: center;
+  width: 116px;
 `
 
 const ArrowUp = styled.div`
   border: solid ${colors.T200};
-  border-width: 0 ${constants.array.gap * 1.5}px ${constants.array.gap * 1.5}px 0;
-  display: inline-block;
-  padding: ${constants.array.gap}px;
+  border-width: 0 ${constants.array.gap * 1.2}px ${constants.array.gap * 1.2}px 0;
+  padding: ${constants.array.gap - 2}px;
   transform: rotate(-135deg);
   grid-area: 1 / 1;
 `
