@@ -61,7 +61,11 @@ const ArrayComponent: React.FC<ArrayProps> = () => {
               {items.map((item, index) => (
                 <Draggable key={item.id} draggableId={item.id} index={index}>
                   {(dragProvided, dragSnapshot) => (
-                    <ArrayItem item={item} provided={dragProvided} snapshot={dragSnapshot} />
+                    <ArrayItem
+                      item={item}
+                      provided={dragProvided}
+                      isDragging={dragSnapshot.isDragging}
+                    />
                   )}
                 </Draggable>
               ))}

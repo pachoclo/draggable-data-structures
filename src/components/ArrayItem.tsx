@@ -1,6 +1,6 @@
 import { colors } from '@atlaskit/theme'
 import React from 'react'
-import { DraggableProvided, DraggableStateSnapshot } from 'react-beautiful-dnd'
+import { DraggableProvided } from 'react-beautiful-dnd'
 import styled from 'styled-components'
 import constants from './constants'
 import { ArrayItemType } from './types'
@@ -10,7 +10,7 @@ const ArrayItemStyled = styled.div<{ variant: string }>`
   align-items: center;
   background-color: ${colors.P300};
   border-color: transparent;
-  border-radius: ${({ variant }) => (variant === 'square' ? 'none' : '50%')};
+  border-radius: ${({ variant }) => (variant === 'square' ? 0 : '50%')};
   border-style: solid;
   border-width: ${constants.array.gap - 2}px;
   display: flex;
@@ -35,13 +35,18 @@ const ArrayItemStyled = styled.div<{ variant: string }>`
 interface ArrayItemProps {
   item: ArrayItemType
   provided: DraggableProvided
-  snapshot: DraggableStateSnapshot
+  isDragging: boolean
   variant?: 'square' | 'circle'
 }
 
-const ArrayItem: React.FC<ArrayItemProps> = ({ item, provided, snapshot, variant = 'square' }) => (
+const ArrayItem: React.FC<ArrayItemProps> = ({
+  item,
+  provided,
+  isDragging,
+  variant = 'square',
+}) => (
   <ArrayItemStyled
-    className={clsx({ dragging: snapshot.isDragging })}
+    className={clsx({ dragging: isDragging })}
     variant={variant}
     ref={(ref) => provided.innerRef(ref)}
     {...provided.draggableProps}
